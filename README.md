@@ -5,11 +5,11 @@ git clone https://github.com/hamdi-ramdane/S8-WANLP-PROJECT-SCRAPPER.git
 cd S8-WANLP-PROJECT-SCRAPPER
 ```
 
-### On Windows
+### On Powershell
 
 ```
 python -m venv .venv
-.venv\Scripts\activate
+.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 
 ```
@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 ```
 python3 -m venv .venv
-source myenv/bin/activate
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
