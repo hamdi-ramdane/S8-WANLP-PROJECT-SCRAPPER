@@ -1,5 +1,6 @@
 import scrapy
 from Scrapy.items import NewsItem
+from urllib.parse import urljoin
 
 class AljazeeraSpider(scrapy.Spider):
     name = "aljazeera_spider" 
@@ -41,5 +42,15 @@ class AljazeeraSpider(scrapy.Spider):
             item = NewsItem()
             item["title"] = article.css("h3.gc__title a span::text").get()
             item["content"] =  article.css(".gc__excerpt p::text").get() 
+            item["url"] =  "https://www.aljazeera.net" + article.css('a.u-clickable-card__link::attr(href)').get()
+            # item["image"] =  ("https://www.aljazeera.net" + article.css('img.article-card__image::attr(src)').get()).split('?')[0]
+            image_src = article.css('img.article-card__image::attr(src)').get()
+            if image_src:
+                # Combine with base URL and remove query parameters
+                full_url = urljoin("https://www.aljazeera.net", image_src)
+                image_url = full_url.split('?')[0]
+                item['image'] = image_url
+            else:
+                item['image'] = None
             item["pub_date"] = article.css('.gc__date__date .date-simple span[aria-hidden="true"]::text').get()
             yield item

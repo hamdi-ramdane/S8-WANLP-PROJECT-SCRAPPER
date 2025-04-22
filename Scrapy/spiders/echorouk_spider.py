@@ -39,7 +39,8 @@ class EchoroukSpider(scrapy.Spider):
         item = NewsItem()
         item["title"] = response.css("h1.ech-sgmn__title::text").get()
         item["content"] = " ".join(response.css(".ech-artx p ::text").getall()).strip()
-        item["pub_date"] = response.css('time.ech-card__mtil::text').get()
         item["url"] = response.url 
+        item["image"] = "none" 
+        item["pub_date"] = response.css('time.ech-card__mtil::text').get()
 
         yield item
